@@ -10,13 +10,15 @@ import { RestauranteService } from "./restaurantes.service";
 })
 export class RestaurantesComponent implements OnInit {
     restaurantes: any;
+    star: any;
     constructor(private restaurantService: RestauranteService) { }
 
     ngOnInit(): void {
         try {
             this.restaurantService.findByEndereco().subscribe((restaurantes) => this.restaurantes = restaurantes);
+            this.star = "star-full";
         } catch (err) {
-           alert(err);
+            alert(err);
         }
     }
 
@@ -28,16 +30,8 @@ export class RestaurantesComponent implements OnInit {
         sideDrawer.showDrawer();
     }
 
-    onItemTapFirstList(args) {
-        console.log(args.index);
-    }
-
-    onItemTapSecondList(args) {
-        console.log(args.index);
-    }
-
-    onItemTapThirdList(args) {
-        console.log(args.index);
+    openRestaurante(rest) {
+        console.log(rest);
     }
 
 }

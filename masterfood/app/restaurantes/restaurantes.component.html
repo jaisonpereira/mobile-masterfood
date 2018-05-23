@@ -1,39 +1,40 @@
 <ActionBar class="action-bar">
-    <!-- 
+  <!-- 
     Use the NavigationButton as a side-drawer button in Android
     because ActionItems are shown on the right side of the ActionBar
     -->
-    <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
-    <!-- 
+  <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
+  <!-- 
     Use the ActionItem for IOS with position set to left. Using the
     NavigationButton as a side-drawer button in iOS is not possible,
     because its function is to always navigate back in the application.
     -->
-    <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()" ios.position="left">
-    </ActionItem>
-    <Label class="action-bar-title" text="Restaurantes"></Label>
-  </ActionBar>
-  <GridLayout class="page page-content" tkMainContent>
-  
-    
-    
-    <ListView [items]="restaurantes" [itemTemplateSelector]="templateSelector" (itemTap)="onItemTapFirstList($event)" class="list-group"
+  <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()" ios.position="left">
+  </ActionItem>
+  <Label class="action-bar-title" text="Restaurantes"></Label>
+</ActionBar>
+<GridLayout class="page page-content" tkMainContent>
+
+
+
+  <ListView [items]="restaurantes" [itemTemplateSelector]="templateSelector" (itemTap)="openRestaurante($event)" class="list-group"
     separatorColor="gray">
-    <ng-template nsTemplateKey="header" let-header="item">
-      <Label [text]="header.name" class="list-group-item bg-primary" isUserInteractionEnabled="false" color="white" fontSize="24"></Label>
-    </ng-template>
-    <ng-template nsTemplateKey="footer" let-footer="item">
-      <Label [text]="footer.name" class="list-group-item" backgroundColor="gray"></Label>
-    </ng-template>
     <ng-template nsTemplateKey="cell" let-rest="item">
       <GridLayout class="list-group-item" rows="*" columns="auto, *">
+
         <Image col="0" [src]="rest.imagePath" class="thumb img-circle" verticalAlignment="top"></Image>
+      
         <StackLayout col="1">
           <Label [text]="rest.nome" class="list-group-item-heading"></Label>
           <Label [text]="rest.categoria" class="list-group-item-text" textWrap="true"></Label>
+          <StackLayout orientation="horizontal">
+              <Label  text="&#xf005;" class="fa"></Label>
+              <Label [text]="rest.avaliacao | number:'1.1'" class="list-group-item-text" textWrap="true"></Label>
+          </StackLayout>
         </StackLayout>
+     
       </GridLayout>
     </ng-template>
   </ListView>
-  
-  </GridLayout>
+
+</GridLayout>
