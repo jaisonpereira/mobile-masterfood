@@ -1,0 +1,23 @@
+<ActionBar class="action-bar">
+        <!-- <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton> -->
+        <!-- <ActionItem icon="res://navigation/menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()" ios.position="left"> -->
+        <!-- </ActionItem> -->
+        <NavigationButton text="Voltar" icon="res://ic_arrow_back" (tap)="voltar()"></NavigationButton>
+        <Label class="action-bar-title" text="Master Food"></Label>
+      </ActionBar>
+      
+      <GridLayout class="page page-content" tkMainContent>
+      <ActivityIndicator row="0" #activityIndicator [busy]="isBusy"  width="100" height="100" class="activity-indicator"></ActivityIndicator>
+      <div *ngIf="!isBusy">
+      <Image col="0" [src]="restaurante.imagePath" class="thumb img-circle" verticalAlignment="top"></Image>
+          <StackLayout col="1">
+            <Label [text]="restaurante.nome" class="list-group-item-heading"></Label>
+            <Label [text]="restaurante.categoria" class="list-group-item-text" textWrap="true"></Label>
+            <StackLayout orientation="horizontal">
+                <Label  text="&#xf005;" class="fa"></Label>
+                <Label [text]="restaurante.avaliacao | number:'1.1'" class="list-group-item-text" textWrap="true"></Label>
+            </StackLayout>
+          </StackLayout>
+        </div> 
+        
+      </GridLayout>

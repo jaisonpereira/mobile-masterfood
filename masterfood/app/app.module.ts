@@ -7,6 +7,9 @@ import { NativeScriptUISideDrawerModule } from "nativescript-ui-sidedrawer/angul
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 
+import { registerElement } from "nativescript-angular/element-registry";
+import { ModalDialogService } from "nativescript-angular/modal-dialog";
+
 @NgModule({
     bootstrap: [
         AppComponent
@@ -22,6 +25,9 @@ import { AppComponent } from "./app.component";
     ],
     schemas: [
         NO_ERRORS_SCHEMA
+    ],
+    providers: [
+        ModalDialogService
     ]
 })
 export class AppModule { }

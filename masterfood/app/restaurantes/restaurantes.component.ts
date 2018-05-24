@@ -1,5 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { AfterViewInit, Component } from "@angular/core";
 import * as app from "application";
+import { RouterExtensions } from "nativescript-angular/router";
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
 import { RestauranteService } from "./restaurantes.service";
 @Component({
@@ -8,17 +9,24 @@ import { RestauranteService } from "./restaurantes.service";
     templateUrl: "./restaurantes.component.html",
     providers: [RestauranteService]
 })
-export class RestaurantesComponent implements OnInit {
+export class RestaurantesComponent implements AfterViewInit {
     restaurantes: any;
     star: any;
-    constructor(private restaurantService: RestauranteService) { }
+    isBusy: boolean = true;
 
-    ngOnInit(): void {
+    constructor(private restaurantService: RestauranteService, private router: RouterExtensions) { }
+
+    ngAfterViewInit(): void {
         try {
-            this.restaurantService.findByEndereco().subscribe((restaurantes) => this.restaurantes = restaurantes);
+            this.restaurantService.findByEndereco().subscribe((restaurantes) => {
+                this.isBusy = false;
+                this.restaurantes = restaurantes;
+            }
+            );
             this.star = "star-full";
         } catch (err) {
             alert(err);
+            this.isBusy = false;
         }
     }
 
@@ -30,8 +38,11 @@ export class RestaurantesComponent implements OnInit {
         sideDrawer.showDrawer();
     }
 
-    openRestaurante(rest) {
-        console.log(rest);
+    goToCardapio(args) {
+        this.router.navigate([
+            "restaurantes/cardapio",
+            this.restaurantes[args.index]._id
+        ]);
     }
 
 }

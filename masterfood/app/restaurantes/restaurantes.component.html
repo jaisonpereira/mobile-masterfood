@@ -14,13 +14,12 @@
   <Label class="action-bar-title" text="Restaurantes"></Label>
 </ActionBar>
 <GridLayout class="page page-content" tkMainContent>
+<ActivityIndicator row="0" #activityIndicator [busy]="isBusy"  width="100" height="100" class="activity-indicator"></ActivityIndicator>
 
-
-
-  <ListView [items]="restaurantes" [itemTemplateSelector]="templateSelector" (itemTap)="openRestaurante($event)" class="list-group"
+  <ListView   [items]="restaurantes" [itemTemplateSelector]="templateSelector"  class="list-group" (itemTap)="goToCardapio($event)"
     separatorColor="gray">
-    <ng-template nsTemplateKey="cell" let-rest="item">
-      <GridLayout class="list-group-item" rows="*" columns="auto, *">
+    <ng-template nsTemplateKey="cell" let-rest="item" let-index="index">
+      <GridLayout  class="list-group-item" rows="*" columns="auto, *">
 
         <Image col="0" [src]="rest.imagePath" class="thumb img-circle" verticalAlignment="top"></Image>
       

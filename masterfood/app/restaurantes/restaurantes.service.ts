@@ -5,16 +5,27 @@ import { MASTER_FOOD_API } from "../app.api";
 import { Restaurante } from "./restaurante/restaurante.model";
 @Injectable()
 export class RestauranteService {
-
-  constructor(private http: HttpClient) { }
+  path: string;
+  constructor(private http: HttpClient) {
+    this.path = "/restaurantes";
+  }
 
   findByEndereco() {
     try {
-      return this.http.get(`${MASTER_FOOD_API}/restaurantes`);
+      return this.http.get(`${MASTER_FOOD_API}${this.path}`);
     } catch (err) {
       alert(err);
     }
   }
+
+  findById(id) {
+    try {
+      return this.http.get(`${MASTER_FOOD_API}${this.path}/${id}`);
+    } catch (err) {
+      alert(err);
+    }
+  }
+
 
   save(restaurante: Restaurante) {
     const headers = new HttpHeaders();
